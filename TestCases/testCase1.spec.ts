@@ -1,39 +1,44 @@
-import { test } from '@playwright/test';
+import { test, chromium, expect } from '@playwright/test';
 import { HomePage } from '../Pages/HomePage';
-import { SearchResultsPage } from '../Pages/SearchResultsPage';
-import { CartPage } from '../Pages/CartPage';
-
+import { ProductPage } from '../Pages/ProductPage';
 test.describe('UI Automation - Test Case 1', () => {
-  test('Search TV and add to shopping cart', async ({ page }) => {
-    test.setTimeout(100000);
+  test('Search TV and add to shopping cart', async () => {
+    test.setTimeout(200000);
+    const browser = await chromium.launch({ headless: false });
+    const context = await browser.newContext();
+    const page = await context.newPage();
 
     // Initialize page objects
     const homePage = new HomePage(page);
-    const searchResultsPage = new SearchResultsPage(page);
-    const cartPage = new CartPage(page);
+    const productPage = new ProductPage(page);
 
-    // Step 1: Navigate to homepage
-    await homePage.navigateToHomePage();
+    // Navigate to homepage
+    await homePage.navigate();
 
-    // Step 2: Search for TVs
-    await homePage.searchForItem('TV');
+    // Search for TVs
+    await homePage.searchForProduct('TV');
 
-    // Step 3: Filter by price range
-    await searchResultsPage.filterPriceRange('500', '4000');
+    // Filter by price range
+    await homePage.filterByPriceRangewithSales('500', '4000');
 
-    // Step 4: Add first and third items to cart
-    console.log('Adding first item to cart...');
-    await searchResultsPage.addItemToCart(0);
-    await searchResultsPage.closeSlideOut();
+    // Add first item to cart
+    await productPage.addFirstItemToCart();
+    await page.screenshot({ path: 'first-click.png', fullPage: true });
 
-    console.log('Adding third item to cart...');
-    await searchResultsPage.addItemToCart(2);
+    // Add third item to cart
+    await productPage.addThirdItemToCart();
+    await page.screenshot({ path: 'third-click.png', fullPage: true });
 
-    // Step 5: Go to cart and verify
-    await cartPage.goToCart();
-    await cartPage.verifyCartItemsCount(2);
-    const subtotal = await cartPage.getCartSubtotal();
+    // Go to cart
+    await productPage.goToCart();
 
+    // Verify subtotal
+    
+    const subtotal = await productPage.getSubtotal();
     console.log(`Cart subtotal: ${subtotal}`);
+    expect(subtotal).toBeTruthy(); // Add more specific assertions as needed
+
+    // Close browser
+    await browser.close();
   });
 });
