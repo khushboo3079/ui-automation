@@ -1,14 +1,63 @@
-import { defineConfig } from '@playwright/test';
+import { PlaywrightTestConfig } from '@playwright/test';
 
-export default defineConfig({
-  testDir: 'D:/ui-automation/TestCases', // Test directory
-  retries: 1, // Retry tests once if they fail
-  reporter: [['list'], ['html']], // Generate HTML report
+const config: PlaywrightTestConfig = {
+  timeout: 350 * 1000,
+  testDir: "./",
+  fullyParallel: true,
+
+  forbidOnly: !!process.env.CI,
+  retries: process.env.CI ? 2 : 0,
+  workers: 1,
+
+  reporter: [
+    process.env.CI ? ['list'] : ['line'],
+
+    [
+      'monocart-reporter',
+      {
+        outputFile: './test-result.report.html',
+      },
+    ],
+
+    [
+      'junit',
+      {
+        outputFile: './test-results/results.xml',
+      },
+    ],
+  ],
+
   use: {
-    baseURL: 'https://www.jbhifi.com.au/', // Base URL for tests
-    headless: false, // Run tests in headless mode
-    viewport: { width: 1280, height: 720 }, // Set the viewport size
-    trace: 'on', // Record trace for debugging
-    screenshot: 'only-on-failure', // Capture screenshots for failed tests
+    headless: true,
+    screenshot: 'on',
+    video: 'retain-on-failure',
+    trace: 'on',
   },
-});
+
+  projects: [
+    {
+      name: 'ui-automation',
+      testDir: 'D:/ui-automation/TestCases',
+      use: {
+        browserName: 'chromium',
+        viewport: null,
+        launchOptions: {
+          args: ['--start-maximized'],
+          slowMo: 500,
+        },
+      },
+    },
+
+    {
+      name: 'API-automation',
+      testDir: 'D:/api-automation/TestCases',
+      use: {
+        browserName: 'chromium',
+        viewport: null,
+        launchOptions: {
+          slowMo: 5000,
+        }
+      },
+    },
+  ],
+};

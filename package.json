@@ -1,16 +1,35 @@
 {
   "name": "ui-automation",
   "version": "1.0.0",
-  "description": "",
+  "description": "Playwright UI Automation Project",
   "main": "index.js",
   "scripts": {
+    "prettier:check": "prettier --check '**/**/*.{ts,js,json,md}  '",
+    "prettier:fix": "prettier --write '**/*.{ts,js,json,md}  '",
+    "pretty-all": "npm run prettier:fix && npm run eslint:fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "pre-commit": [
+    "pretty-all"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.50.0",
-    "playwright": "^1.50.0"
-  }
+    "@types/node": "^25.0.9",
+    "playwright": "^1.57.0"
+  },
+  "dependencies": {
+    "playwright-core": "^1.50.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khushboo3079/ui-automation.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/khushboo3079/ui-automation/issues"
+  },
+  "homepage": "https://github.com/khushboo3079/ui-automation#readme"
 }

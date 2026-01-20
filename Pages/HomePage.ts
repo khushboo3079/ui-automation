@@ -1,24 +1,25 @@
 import { Page, Locator } from '@playwright/test';
+import * as locators from "../tests/ui-automation/Locators/HomePageLocators";
 
 export class HomePage {
-  private page: Page;
-  private searchBoxpage: Locator;
-  private searchBox: Locator;
-  private priceRangeButton: Locator;
-  private minPriceInput: Locator;
-  private maxPriceInput: Locator;
-  private saleItemsCheckbox: Locator;
-  private searchButton: Locator;
+  readonly page: Page;
+  readonly SEARCHBOX: Locator;
+  readonly INPUT_SEARCHBOX: Locator;
+  readonly PRICERANGE_BUTTON: Locator;
+  readonly MINPRICE_INPUT: Locator;
+  readonly MAXPRICE_INPUT: Locator;
+  readonly SALEITEMS_CHECKBOX: Locator;
+  readonly SEARCH_BUTTON: Locator;
 
   constructor(page: Page) {
     this.page = page;
-    this.searchBoxpage = page.locator('xpath=//*[@id="quicksearch-search-box"]');
-    this.searchBox = page.locator('input.input-search');
-    this.priceRangeButton = page.locator('button:has-text("Price Range")');
-    this.minPriceInput = page.locator('input#min-input');
-    this.maxPriceInput = page.locator('input#max-input');
-    this.saleItemsCheckbox = page.locator('text=Sale items');
-    this.searchButton = page.locator('button.search-price-range-dropdown--search[type="submit"]');
+    this.SEARCHBOX = page.locator(locators.SEARCHBOX);
+    this.INPUT_SEARCHBOX = page.locator(locators.INPUT_SEARCHBOX);
+    this.PRICERANGE_BUTTON = page.locator(locators.PRICERANGE_BUTTON);
+    this.MINPRICE_INPUT = page.locator(locators.MINPRICE_INPUT);
+    this.MAXPRICE_INPUT = page.locator(locators.MAXPRICE_INPUT);
+    this.SALEITEMS_CHECKBOX = page.locator(locators.SALEITEMS_CHECKBOX);
+    this.SEARCH_BUTTON = page.locator(locators.SEARCH_BUTTON);
   }
 
   async navigate(): Promise<void> {
@@ -33,8 +34,8 @@ export class HomePage {
 
   async searchForProduct(productName: string): Promise<void> {
     try {
-      await this.searchBoxpage.click();
-      await this.searchBox.fill(productName);
+      await this.SEARCHBOX.click();
+      await this.SEARCHBOX.fill(productName);
       console.log(`Searched for product: ${productName}`);
     } catch (error) {
       console.error(`Failed to search for product "${productName}":`, error);
@@ -44,11 +45,11 @@ export class HomePage {
 
   async filterByPriceRangewithSales(minPrice: string, maxPrice: string): Promise<void> {
     try {
-      await this.priceRangeButton.click();
-      await this.minPriceInput.fill(minPrice);
-      await this.maxPriceInput.fill(maxPrice);
-      await this.saleItemsCheckbox.check();
-      await this.searchButton.click();
+      await this.PRICERANGE_BUTTON.click();
+      await this.MINPRICE_INPUT.fill(minPrice);
+      await this.MAXPRICE_INPUT.fill(maxPrice);
+      await this.SALEITEMS_CHECKBOX.check();
+      await this.SEARCH_BUTTON.click();
       console.log(`Filtered by price range (${minPrice}-${maxPrice}) with sale items.`);
     } catch (error) {
       console.error(`Failed to filter by price range with sales (${minPrice}-${maxPrice}):`, error);
@@ -58,10 +59,10 @@ export class HomePage {
 
   async filterByPriceRange(minPrice: string, maxPrice: string): Promise<void> {
     try {
-      await this.priceRangeButton.click();
-      await this.minPriceInput.fill(minPrice);
-      await this.maxPriceInput.fill(maxPrice);
-      await this.searchButton.click();
+      await this.PRICERANGE_BUTTON.click();
+      await this.MINPRICE_INPUT.fill(minPrice);
+      await this.MAXPRICE_INPUT.fill(maxPrice);
+      await this.SEARCH_BUTTON.click();
       console.log(`Filtered by price range (${minPrice}-${maxPrice}).`);
     } catch (error) {
       console.error(`Failed to filter by price range (${minPrice}-${maxPrice}):`, error);

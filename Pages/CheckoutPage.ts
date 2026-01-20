@@ -1,28 +1,29 @@
 import { Page, Locator, expect } from '@playwright/test';
+import * as loctaors from "../tests/ui-automation/Locators/CheckoutLocators";
 
-export class CheckoutPage {
-    private page: Page;
-    private btnCheckout: Locator;
-    private inputEmail: Locator;
-    private clickandCollect: Locator;
-    private cartItems: Locator;
+export class CheckoutPage{
+    readonly page: Page;
+    readonly BTN_CHECKOUT: Locator;
+    readonly INPUT_EMAIL: Locator;
+    readonly CLICK_AND_COLLECT: Locator;
+    readonly CART_ITEMS: Locator;
 
     constructor(page: Page) {
         this.page = page;
-        this.btnCheckout = page.locator('button:has-text("Checkout")');
-        this.inputEmail = page.locator('//input[@id="email"]');
-        this.clickandCollect = page.locator('text=Click & Collect');
-        this.cartItems = page.locator('span._19gi7yt0._19gi7ytw._19gi7ytv._1fragemnw:has-text("Subtotal • 3 items")');
+        this.BTN_CHECKOUT = page.locator(loctaors.BTN_CHECKOUT);
+        this.INPUT_EMAIL = page.locator('loctaors.INPUT_EMAIL');
+        this.CLICK_AND_COLLECT = page.locator('loctaors.CLICK_AND_COLLECT');
+        this.CART_ITEMS = page.locator('loctaors.CART_ITEMS');
     }
 
     async clickOnCheckout(): Promise<void> {
-        await this.btnCheckout.click();
+        await this.BTN_CHECKOUT.click();
     }
 
     async enterEmail(email: string): Promise<void> {
-        await this.inputEmail.waitFor({state: 'visible', timeout:100000});
-        await this.inputEmail.fill(email);
-        await this.clickandCollect.click();
+        await this.INPUT_EMAIL.waitFor({state: 'visible', timeout:100000});
+        await this.INPUT_EMAIL.fill(email);
+        await this.clickOnCheckout.click();
     }
 
     async validateProductandSubtotal() {
@@ -32,7 +33,7 @@ export class CheckoutPage {
         while (retries < maxRetries) {
             try {
                 console.log(`Attempt ${retries + 1}: Waiting for cart items to be visible...`);
-                await this.cartItems.waitFor({ state: 'visible', timeout: 10000 }); // Shorter timeout per attempt
+                await this.CART_ITEMS.waitFor({ state: 'visible', timeout: 10000 }); // Shorter timeout per attempt
                 console.log('Cart items are visible.');
     
                 //const itemCount = await this.cartItems.count();
