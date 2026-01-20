@@ -1,0 +1,13 @@
+export const ADDTOCART_BUTTON = 'span.Button_labelVariants_button__ickenod:has-text("Add to cart")';
+export const SLIDOUT_CART_BUTTON = '[data-testid="slideout-close-button"]';
+export const THIRD_ADD_TO_CART_BUTTON_ITEM = '(//span[contains(@class, "Button_labelVariants_button__ickenod") and text()="Add to cart"])';   
+export const CART_BUTTON = '//span[contains(@class, "_16cfbrb4") and text()="Cart"]';
+export const SUBTOTAL_AMOUNT = 'cart-price-total';
+export const INCREASE_QUANTITY = 'button[value="Increase Value"]';
+export const VIEW_CART = 'text=View Cart';
+export const BTN_CHECK_AVILABILITY = 'button:has-text("Check Availability")';
+export const INPUT_POSTCODE = '[data-testid="jbtextfield-location-search"]';  
+export const SELECT_MELBOURNE = 'text=Melbourne VIC 3004';
+export const DELIVERY_OPTION = 'div._1r37qq91:has-text("Delivery")';
+export const CLICK_AND_COLLECT = 'span._13cnlxs1xu:has-text("Click & Collect")';
+export const IN_STORE = 'text=In-store';

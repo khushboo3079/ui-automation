@@ -23,7 +23,7 @@ export class CheckoutPage{
     async enterEmail(email: string): Promise<void> {
         await this.INPUT_EMAIL.waitFor({state: 'visible', timeout:100000});
         await this.INPUT_EMAIL.fill(email);
-        await this.clickOnCheckout.click();
+        await this.CLICK_AND_COLLECT.click();
     }
 
     async validateProductandSubtotal() {
