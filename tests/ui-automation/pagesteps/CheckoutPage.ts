@@ -1,5 +1,5 @@
 import { Page, Locator, expect } from '@playwright/test';
-import * as loctaors from "../tests/ui-automation/Locators/CheckoutLocators";
+import * as loctaors from "../Locators/CheckoutLocators";
 
 export class CheckoutPage{
     readonly page: Page;

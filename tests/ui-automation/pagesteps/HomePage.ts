@@ -1,5 +1,5 @@
 import { Page, Locator } from '@playwright/test';
-import * as locators from "../tests/ui-automation/Locators/HomePageLocators";
+import * as locators from "../Locators/HomePageLocators";
 
 export class HomePage {
   readonly page: Page;
