@@ -1,4 +1,4 @@
-export const SEARCHBOX = 'xpath=//*[@id="quicksearch-search-box"]';
+export const SEARCHBOX = "//input[@class='input-search']";
 export const INPUT_SEARCHBOX = 'input.input-search';   
 export const PRICERANGE_BUTTON = 'button:has-text("Price Range")';
 export const MINPRICE_INPUT = 'input#min-input';   

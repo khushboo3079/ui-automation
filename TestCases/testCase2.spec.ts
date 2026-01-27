@@ -1,6 +1,6 @@
 import { test, chromium, expect } from '@playwright/test';
-import { ProductPage } from '../Pages/ProductPage';
-import { HomePage } from '../Pages/HomePage';
+import { ProductPage } from '../tests/ui-automation/pagesteps/ProductPage';
+import { HomePage } from '../tests/ui-automation/pagesteps/HomePage';
 
 test.describe('UI Automation - Test Case 2', () => {
   test('Search TV and add to shopping cart', async () => {

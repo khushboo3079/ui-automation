@@ -2,29 +2,16 @@ import { PlaywrightTestConfig } from '@playwright/test';
 
 const config: PlaywrightTestConfig = {
   timeout: 350 * 1000,
-  testDir: "./",
-  fullyParallel: true,
+  testDir: "./TestCases",
+  fullyParallel: false,
 
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: 1,
 
   reporter: [
-    process.env.CI ? ['list'] : ['line'],
-
-    [
-      'monocart-reporter',
-      {
-        outputFile: './test-result.report.html',
-      },
-    ],
-
-    [
-      'junit',
-      {
-        outputFile: './test-results/results.xml',
-      },
-    ],
+    ['html', { outputFolder: 'playwright-report', open: 'never' }],
+    ['list'],
   ],
 
   use: {
@@ -36,8 +23,8 @@ const config: PlaywrightTestConfig = {
 
   projects: [
     {
-      name: 'ui-automation',
-      testDir: 'D:/ui-automation/TestCases',
+      name: 'chromium',
+      testDir: './TestCases',
       use: {
         browserName: 'chromium',
         viewport: null,
@@ -47,17 +34,7 @@ const config: PlaywrightTestConfig = {
         },
       },
     },
-
-    {
-      name: 'API-automation',
-      testDir: 'D:/api-automation/TestCases',
-      use: {
-        browserName: 'chromium',
-        viewport: null,
-        launchOptions: {
-          slowMo: 5000,
-        }
-      },
-    },
   ],
 };
+
+export default config;
